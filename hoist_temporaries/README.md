@@ -8,7 +8,7 @@ Procedural macro to extend the lifetimes of temporary variables.
 
 ## Examples
 
-See [working examples](https://github.com/illicitonion/hoist_temporaries/blob/main/tests/working_examples) for more examples.
+See [working examples](https://github.com/illicitonion/hoist_temporaries/blob/main/tests/tests/working_examples) for more examples.
 
 ```rust
 #[hoist_temporaries::hoist_temporaries]
