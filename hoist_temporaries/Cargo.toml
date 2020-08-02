@@ -1,6 +1,6 @@
 [package]
 name = "hoist_temporaries"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Daniel Wagner-Hall <dawagner@gmail.com>"]
 description = "Procedural macro to extend the lifetimes of temporary variables."
 edition = "2018"
