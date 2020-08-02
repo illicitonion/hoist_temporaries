@@ -1,0 +1,12 @@
+[package]
+name = "tests"
+version = "0.1.0"
+authors = ["Daniel Wagner-Hall <dawagner@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+hoist_temporaries = { path = "../hoist_temporaries" }
+
+[dev-dependencies]
+# TODO: Update to a release once https://github.com/dtolnay/trybuild/pull/82 merges.
+trybuild = { git = "https://github.com/illicitonion/trybuild.git", rev = "bddcdb758ea7742a14b1e50fc153855fe609ef5b" }

@@ -1,0 +1,11 @@
+error[E0382]: borrow of moved value: `owned`
+  --> $DIR/already_owned_in_correect_scope.rs:11:20
+   |
+5  |     let owned = String::from("owned");
+   |         ----- move occurs because `owned` has type `std::string::String`, which does not implement the `Copy` trait
+...
+8  |         food = &owned;
+   |                 ----- value moved here
+...
+11 |     println!("{}", owned);
+   |                    ^^^^^ value borrowed here after move

@@ -1,0 +1,1 @@
+warning: hoist_temporaries was enabled for variable `snack` on function `main` but no temporaries were hoisted.

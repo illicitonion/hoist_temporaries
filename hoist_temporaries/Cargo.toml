@@ -1,0 +1,23 @@
+[package]
+name = "hoist_temporaries"
+version = "0.1.0"
+authors = ["Daniel Wagner-Hall <dawagner@gmail.com>"]
+description = "Procedural macro to extend the lifetimes of temporary variables."
+edition = "2018"
+repository = "https://github.com/illicitonion/hoist_temporaries"
+readme = "README.md"
+keywords = ["reference", "lifetimes", "temporary", "temporaries", "variable"]
+categories = ["development-tools", "rust-patterns"]
+license = "BSD-3-Clause"
+
+[badges]
+travis-ci = { repository = "illicitonion/hoist_temporaries", branch = "main" }
+maintenance = { status = "passively-maintained" }
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1"
+quote = "1"
+syn = { version = "1", features = ["full", "visit-mut"] }

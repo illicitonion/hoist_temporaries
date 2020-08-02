@@ -1,0 +1,22 @@
+language: rust
+
+rust:
+  - stable
+  - beta
+  - nightly
+
+script:
+  - cargo test --workspace
+
+matrix:
+  include:
+    - name: "cargo fmt"
+      rust: stable
+      script:
+        - rustup component add rustfmt
+        - cargo fmt --all -- --check
+    - name: "cargo clippy"
+      rust: stable
+      script:
+        - rustup component add clippy
+        - cargo clippy --all
