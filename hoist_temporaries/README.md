@@ -11,10 +11,9 @@ Procedural macro to extend the lifetimes of temporary variables.
 See [working examples](https://github.com/illicitonion/hoist_temporaries/blob/main/tests/working_examples) for more examples.
 
 ```rust
-use hoist_temporaries::hoist_temporaries;
-
-#[hoist_temporaries(snack)]
+#[hoist_temporaries::hoist_temporaries]
 fn main() {
+    #[hoist_temporaries::hoist]
     let mut snack = "Cheese";
     if true {
         // Without hoist_temporaries, this would error because the format!() returns a temporary which would otherwise be dropped because it has no owner.

@@ -1,7 +1,7 @@
 error: custom attribute panicked
  --> $DIR/bad_attr.rs:3:1
   |
-3 | #[hoist_temporaries(snack foods)]
-  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3 | #[hoist_temporaries(snack)]
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
   |
-  = help: message: Invalid attribute - expected #[hoist_temporaries(var1, var2, ...)]
+  = help: message: Invalid attribute - hoist_temporaries takes no arguments.

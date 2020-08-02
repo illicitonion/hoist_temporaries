@@ -1,7 +1,8 @@
 use hoist_temporaries::hoist_temporaries;
 
-#[hoist_temporaries(food)]
+#[hoist_temporaries]
 fn main() {
+    #[hoist_temporaries::hoist]
     let mut food = "Toast";
     if true {
         food = &format!("{} and peanut butter", food);

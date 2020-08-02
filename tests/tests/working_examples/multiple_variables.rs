@@ -1,11 +1,13 @@
 use hoist_temporaries::hoist_temporaries;
 
-#[hoist_temporaries(drink, snack)]
+#[hoist_temporaries]
 fn main() {
+    #[hoist_temporaries::hoist]
     let mut snack = "Cheese";
     if true {
         snack = &format!("{}burger", snack);
     }
+    #[hoist_temporaries::hoist]
     let mut drink = "Lemonade";
     if false {
         drink = &String::from("Orange juice");

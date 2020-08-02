@@ -1,8 +1,11 @@
 use hoist_temporaries::hoist_temporaries;
 
 #[hoist_temporaries]
-fn main() {
+pub fn f() {
+    let mut snack;
     #[hoist_temporaries::hoist]
-    let snack = "Cheese";
-    assert_eq!(snack, "Cheese");
+    snack = "blah";
+    println!("{}", snack);
 }
+
+fn main() {}

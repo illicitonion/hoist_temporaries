@@ -1,8 +1,9 @@
 use hoist_temporaries::hoist_temporaries;
 
-#[hoist_temporaries(food)]
+#[hoist_temporaries]
 fn main() {
     let owned = String::from("owned");
+    #[hoist_temporaries::hoist]
     let mut food: &str = "Cheese";
     if true {
         food = &owned;

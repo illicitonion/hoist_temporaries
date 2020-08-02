@@ -15,6 +15,7 @@ matrix:
       script:
         - rustup component add rustfmt
         - cargo fmt --all -- --check
+        - rustfmt --check tests/tests/*/*.rs
     - name: "cargo clippy"
       rust: stable
       script:

@@ -1,7 +1,8 @@
 use hoist_temporaries::hoist_temporaries;
 
-#[hoist_temporaries(snack)]
+#[hoist_temporaries]
 fn main() {
+    #[hoist_temporaries::hoist]
     let snack: &str;
     {
         snack = &String::from("Cheeseburger");

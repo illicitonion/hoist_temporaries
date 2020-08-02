@@ -1,15 +1,32 @@
-use proc_macro::{Ident, TokenStream, TokenTree};
+use proc_macro::TokenStream;
 use proc_macro2::Span;
 use quote::{format_ident, quote};
 use std::borrow::BorrowMut;
+use std::collections::BTreeSet;
 use syn::export::ToTokens;
 use syn::visit_mut::VisitMut;
 use syn::{Block, Expr, Pat, PatIdent, PatType, Stmt};
 
+mod attr_parser;
+
 #[proc_macro_attribute]
 pub fn hoist_temporaries(attr: TokenStream, item: TokenStream) -> TokenStream {
-    let idents = parse_idents(attr).map_err(|err| panic!("{}", err)).unwrap();
-    let mut f = syn::parse::<syn::ItemFn>(item).expect("Failed to parse function");
+    if !attr.is_empty() {
+        panic!("Invalid attribute - hoist_temporaries takes no arguments.");
+    }
+    let mut idents = BTreeSet::new();
+    let stripped_item = attr_parser::parse(item, &mut idents)
+        .map_err(|err| {
+            panic!(
+                "Failed to parse function marked with #[hoist_temporaries::hoist_temporaries]: {}",
+                err
+            )
+        })
+        .unwrap();
+    let mut f = syn::parse::<syn::ItemFn>(stripped_item)
+        .map_err(|err| panic!("Failed to parse function: {}", err))
+        .unwrap();
+
     for ident in idents {
         let mut rewrite_visitor = RewriteAssignmentVisitor {
             ident: ident.to_string(),
@@ -31,26 +48,6 @@ pub fn hoist_temporaries(attr: TokenStream, item: TokenStream) -> TokenStream {
         }
     }
     f.into_token_stream().into()
-}
-
-fn parse_idents(attr: TokenStream) -> Result<Vec<Ident>, String> {
-    attr.into_iter()
-        .enumerate()
-        .filter_map(|(i, token)| {
-            if i % 2 == 0 {
-                if let TokenTree::Ident(ident) = &token {
-                    return Some(Ok(ident.clone()));
-                }
-            } else if let TokenTree::Punct(punct) = &token {
-                if punct.as_char() == ',' {
-                    return None;
-                }
-            }
-            Some(Err(String::from(
-                "Invalid attribute - expected #[hoist_temporaries(var1, var2, ...)]",
-            )))
-        })
-        .collect()
 }
 
 fn backing_ident(ident: &str) -> proc_macro2::Ident {
